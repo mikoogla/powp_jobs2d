@@ -11,6 +11,7 @@ import edu.kis.powp.jobs2d.drivers.adapter.LineDrawerAdapter;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
 import edu.kis.powp.jobs2d.features.DriverFeature;
+import edu.kis.powp.jobs2d.models.Figures;
 
 public class TestJobs2dPatterns {
 	private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -24,8 +25,8 @@ public class TestJobs2dPatterns {
 		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener(
 				DriverFeature.getDriverManager());
 
-		application.addTest("Figure Joe 1", selectTestFigureOptionListener);
-		application.addTest("Figure Joe 2", selectTestFigureOptionListener);
+		application.addTest(Figures.FIGURE_JOE_1, selectTestFigureOptionListener);
+		application.addTest(Figures.FIGURE_JOE_2, selectTestFigureOptionListener);
 	}
 
 	/**
@@ -37,10 +38,10 @@ public class TestJobs2dPatterns {
 		Job2dDriver loggerDriver = new LoggerDriver();
 		DriverFeature.addDriver("Logger Driver", loggerDriver);
 
-		Job2dDriver testDriver = new DrawPanelControllerJob2DriverAdapter();
+		Job2dDriver testDriver = new DrawPanelControllerJob2DriverAdapter(DrawerFeature.getDrawerController());
 		DriverFeature.addDriver("Test Simulator", testDriver);
 
-		Job2dDriver lineDrawerDriver = new LineDrawerAdapter();
+		Job2dDriver lineDrawerDriver = new LineDrawerAdapter(DrawerFeature.getDrawerController());
 		DriverFeature.addDriver("Line Drawer Driver", lineDrawerDriver);
 		DriverFeature.getDriverManager().setCurrentDriver(lineDrawerDriver);
 
