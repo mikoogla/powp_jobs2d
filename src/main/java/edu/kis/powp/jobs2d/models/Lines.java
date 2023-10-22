@@ -2,15 +2,16 @@ package edu.kis.powp.jobs2d.models;
 
 import edu.kis.legacy.drawer.shape.ILine;
 import edu.kis.legacy.drawer.shape.LineFactory;
+import edu.kis.powp.jobs2d.features.DrawerFeature;
 
 public class Lines {
-    protected enum LineTypes {
+    public enum LineTypes {
         BASIC,
         DOTTED,
         SPECIAL
     }
 
-    private LineTypes getLineTypeByName(String lineName) {
+    public static LineTypes getLineTypeByName(String lineName) {
         switch (lineName) {
             case "Solid line":
                 return LineTypes.BASIC;
@@ -24,8 +25,7 @@ public class Lines {
     }
 
     public static ILine getSelectedLine(String lineType) {
-        Lines lines = new Lines();
-        switch (lines.getLineTypeByName(lineType)) {
+        switch (getLineTypeByName(lineType)) {
             case DOTTED:
                 return LineFactory.getDottedLine();
             case SPECIAL:
@@ -33,6 +33,21 @@ public class Lines {
             case BASIC:
             default:
                 return LineFactory.getBasicLine();
+        }
+    }
+
+    public static void setLine(String lineName) {
+        switch (getLineTypeByName(lineName)) {
+            case DOTTED:
+                DrawerFeature.setLineType("Dotted line");
+                break;
+            case SPECIAL:
+                DrawerFeature.setLineType("Special line");
+                break;
+            case BASIC:
+            default:
+                DrawerFeature.setLineType("Solid line");
+                break;
         }
     }
 }
